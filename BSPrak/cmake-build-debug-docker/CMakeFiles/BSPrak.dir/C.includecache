@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/tmp/tmp.g43bOdiEZ5/keyValStore.c
+keyValStore.h
+/tmp/tmp.g43bOdiEZ5/keyValStore.h
+
+/tmp/tmp.g43bOdiEZ5/keyValStore.h
+
+/tmp/tmp.g43bOdiEZ5/main.c
+stdio.h
+-
+sys/socket.h
+-
+stdlib.h
+-
+netinet/in.h
+-
+unistd.h
+-
+
+/tmp/tmp.g43bOdiEZ5/sub.c
+sub.h
+/tmp/tmp.g43bOdiEZ5/sub.h
+
+/tmp/tmp.g43bOdiEZ5/sub.h
+
