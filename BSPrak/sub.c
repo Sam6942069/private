@@ -37,11 +37,9 @@ void run() {
                 strcat(out, ":");
                 strcat(out, value);
                 strcat(out, "\n");
-                output();
                 break;
             }
             case GET: {
-                output();
                 char* key = strtok(NULL, "\r");
                 semop(semid, &down, 1);
                 char* value = get(key);
