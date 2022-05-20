@@ -2,52 +2,53 @@
 // Created by samko on 28.04.2022.
 //
 
+#include <string.h>
 #include "keyValStore.h"
 #include "stdio.h"
+#include "sub.h"
 
-struct key keyStore[100];
-int next = 0;
-
-void put( const char * key, const char * value) {
-    struct key newKey;
-    for (int i = 0; i < next; ++i) {
-        if (keyStore[i].name == key) {
-            keyStore[i].value = value;
-            printf("Value updated");
-        }
-        else {
-            newKey.name = key;
-            newKey.value = value;
-            keyStore[next] = newKey;
-            next++;
-            printf("Key added");
-        }
+void storage_init() {
+    for (int i = 0; i < CAP; ++i) {
+        keyStore[i].name[0] = '\0';
     }
 }
 
-int get( const char * key) {
-    for (int i = 0; i < next-1; ++i) {
-        if (keyStore[i].name == key) {
+void put(char *key, char *value) {
+    for (int i = 0; i < CAP; ++i) {
+        if (keyStore[i].name[0] == '\0') {
+            if (strcmp(keyStore[i].name, key) == 0) {
+                strcpy(keyStore[i].value, value);
+                return;
+            }
+        }
+    }
+    for (int i = 0; i < CAP; ++i) {
+        if (keyStore[i].name[0] == '\0') {
+            strcpy(keyStore[i].name, key);
+            strcpy(keyStore[i].value, value);
+            break;
+        }
+    }
+
+}
+
+char *get(const char *keyName) {
+    for (int i = 0; i < CAP; ++i) {
+        if (strcmp(keyStore[i].name, keyName) == 0) {
             return keyStore[i].value;
         }
-        else { return 0; }
     }
-    return 0;
+    return "\0";
 }
 
-void del( const char * key) {
-    struct key emptyKey;
-    emptyKey.name = "";
-    emptyKey.value = "";
-    for (int i = 0; i < next - 1; ++i) {
-        if (keyStore[i].name == key) {
-            for (int j = i; j < next - 1 - i; ++j) {
-                keyStore[j] = keyStore[j + 1];
-                keyStore[next - 1] = emptyKey;
-                next--;
-            }
-        } else { printf("Key doesn't exist"); }
+int del(char *key) {
+    for (int i = 0; i < CAP; ++i) {
+        if (strcmp(keyStore[i].name, key) == 0) {
+            keyStore[i].name[0] = '\0';
+            return 0;
+        }
     }
+    return -1;
 }
 
 
